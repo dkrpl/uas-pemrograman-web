@@ -5,16 +5,16 @@ class User extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-         if (!$this->session->userdata('email')) {
-                redirect('auth/login');
-            }
+        if (!$this->session->userdata('email')) {
+            redirect('auth/login');
+        }
         $this->load->model('User_model');
     }
 
     public function index() {
         $data = [
             'title' => 'Data User',
-            'list'  =>  $this->User_model->get_all()
+            'list'  => $this->User_model->get_all()
         ];
         $data['content'] = $this->load->view('content/user/view_user', $data, true);
         $this->load->view('layouts/template', $data);
@@ -23,9 +23,9 @@ class User extends CI_Controller {
     public function add() {
         if ($_POST) {
             $this->User_model->insert([
-                'nama' => $this->input->post('nama'),
+                'nama'  => $this->input->post('nama'),
                 'email' => $this->input->post('email'),
-                'paswd' => $this->input->post('paswd'),
+                'paswd' => md5($this->input->post('paswd')), // md5 password
                 'akses' => $this->input->post('akses'),
                 'kelas' => $this->input->post('kelas')
             ]);
@@ -40,15 +40,22 @@ class User extends CI_Controller {
 
     public function edit($id) {
         if ($_POST) {
-            $this->User_model->update($id, [
-                'nama' => $this->input->post('nama'),
+            $update_data = [
+                'nama'  => $this->input->post('nama'),
                 'email' => $this->input->post('email'),
-                'paswd' => $this->input->post('paswd'),
                 'akses' => $this->input->post('akses'),
                 'kelas' => $this->input->post('kelas')
-            ]);
+            ];
+
+            $password = $this->input->post('paswd');
+            if (!empty($password)) {
+                $update_data['paswd'] = md5($password); // hanya update jika diisi
+            }
+
+            $this->User_model->update($id, $update_data);
             redirect('user');
         }
+
         $data = [
             'title' => 'Edit Data user',
             'row'   => $this->User_model->get($id)

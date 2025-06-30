@@ -15,9 +15,10 @@
             <input type="email" name="email" class="form-control" value="<?= isset($row) ? $row->email : '' ?>" required>
           </div>
           <div class="form-group">
-            <label>Password</label>
-            <input type="password" name="paswd" class="form-control" value="<?= isset($row) ? $row->paswd : '' ?>" required>
+            <label>Password <?= isset($row) ? '(Kosongkan jika tidak diubah)' : '' ?></label>
+            <input type="password" name="paswd" class="form-control" <?= isset($row) ? '' : 'required' ?>>
           </div>
+
           <div class="form-group">
             <label>Akses</label>
             <select name="akses" class="form-control" required>

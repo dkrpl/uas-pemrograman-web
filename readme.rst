@@ -42,6 +42,17 @@ Installation
 Please see the `installation section <https://codeigniter.com/userguide3/installation/index.html>`_
 of the CodeIgniter User Guide.
 
+****************************
+Default Admin Login Account
+****************************
+
+To access the admin dashboard or system after installation, use the following default credentials:
+
+- **Email:** `admin@gmail.com`
+- **Password:** `admin123`
+
+> ⚠️ *For security purposes, please remember to change this password after your first login.*
+
 *******
 License
 *******

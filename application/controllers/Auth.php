@@ -16,7 +16,7 @@ class Auth extends CI_Controller {
         if ($_POST) {
             $user = $this->User_model->check_login(
                 $this->input->post('email'),
-                $this->input->post('paswd')
+                md5($this->input->post('paswd'))
             );
 
             if ($user) {
