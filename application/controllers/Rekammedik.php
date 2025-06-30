@@ -6,6 +6,9 @@ class Rekammedik extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+        if (!$this->session->userdata('email')) {
+                redirect('auth/login');
+            }
         $this->load->model('Rekammedik_model');
         $this->load->model('Pasien_model');
         $this->load->model('Dokter_model');
